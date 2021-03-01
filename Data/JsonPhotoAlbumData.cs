@@ -4,14 +4,13 @@ using System.Net;
 using Newtonsoft.Json;
 using Runpath.Models;
 
-
 namespace Runpath.Data {
     public class JsonPhotoAlbumData : IPhotoAlbumData {
         public IEnumerable<Album> GetAllPhotoAlbums() {
             var albums = new List<Album>();
             var photos = new List<Photo>();
 
-            using (WebClient wc = new WebClient()) {
+            using (var wc = new WebClient()) {
                 var photoJson = wc.DownloadString("http://jsonplaceholder.typicode.com/photos");
                 var albumJson = wc.DownloadString("http://jsonplaceholder.typicode.com/albums");
                 photos = JsonConvert.DeserializeObject<List<Photo>>(photoJson);
