@@ -5,8 +5,7 @@ using Newtonsoft.Json;
 using Runpath.Models;
 
 
-namespace Runpath.Data
-{
+namespace Runpath.Data {
     public class JsonPhotoAlbumData : IPhotoAlbumData {
         public IEnumerable<Album> GetAllPhotoAlbums() {
             var albums = new List<Album>();
@@ -22,14 +21,10 @@ namespace Runpath.Data
             return CombinePhotoAlbums(albums, photos);
         }
 
-        public IEnumerable<Album> GetPhotoAlbumsByUserId(int userId) {
-            return GetAllPhotoAlbums().Where(a => a.UserId == userId);
-        }
+        public IEnumerable<Album> GetPhotoAlbumsByUserId(int userId) => GetAllPhotoAlbums().Where(album => album.UserId == userId);
 
         public List<Album> CombinePhotoAlbums(List<Album> albums, List<Photo> photos) {    
-            albums.ForEach(a => a.Photos = new List<Photo>());
-            albums.ForEach(a => a.Photos.AddRange(photos.Where(p => p.AlbumId == a.Id)));
-
+            albums.ForEach(album => album.Photos.AddRange(photos.Where(photo => photo.AlbumId == album.Id)));
             return albums;
         }
     }
